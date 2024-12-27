@@ -5,7 +5,9 @@ import com.elhilali.authentification.dataAcces.dto.LoginRequestDTO;
 import com.elhilali.authentification.dataAcces.dto.LoginResponseDTO;
 import com.elhilali.authentification.dataAcces.dto.SignupRequestDTO;
 import com.elhilali.authentification.dataAcces.dto.SignupResponseDTO;
+import com.elhilali.authentification.service.StudentService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,18 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class StudentController {
 
-    @PostMapping("/lgoin")
-    public LoginResponseDTO login(@Valid @RequestBody LoginRequestDTO loginRequestDTO){
+    @Autowired
+    StudentService studentService;
 
-        return "";
-
-    }
     @PostMapping("/student/signup")
-    public SignupResponseDTO signup(@Valid @RequestBody SignupRequestDTO loginRequestDTO){
+    public SignupResponseDTO signup(@Valid @RequestBody SignupRequestDTO signupRequestDTO){
 
-        return "";
+        return studentService.signup(signupRequestDTO) ;
 
     }
+//    @PostMapping("/lgoin")
+//    public LoginResponseDTO login(@Valid @RequestBody LoginRequestDTO loginRequestDTO){
+//
+//        return ;
+//
+//    }
 
 
 

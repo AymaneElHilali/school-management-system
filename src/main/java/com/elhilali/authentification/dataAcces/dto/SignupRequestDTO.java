@@ -2,6 +2,7 @@ package com.elhilali.authentification.dataAcces.dto;
 
 import com.elhilali.authentification.dataAcces.entity.Role;
 import com.elhilali.authentification.dataAcces.entity.Sex;
+import com.elhilali.authentification.dataAcces.entity.Student;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -30,7 +31,7 @@ public class SignupRequestDTO extends LoginRequestDTO {
     private Date birthday;
 
     @NotBlank(message = "Phone number cannot be blank")
-    @Pattern(regexp = "^\\+?[0-9. ()-]{7,}$", message = "Phone number must be valid and at least 7 characters long")
+    @Pattern(regexp = "^0[67][0-9]{8}$", message = "Invalid phone number")
     private String phone;
 
     @Size(max = 500, message = "Address cannot exceed 500 characters")
@@ -48,4 +49,19 @@ public class SignupRequestDTO extends LoginRequestDTO {
     @NotNull(message = "Role cannot be null")
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public Student toEntity() {
+        return (Student) Student.builder()
+                .email(this.getEmail())
+                .password(this.getPassword())
+                .firstName(this.getFirstName())
+                .lastName(this.getLastName())
+                .birthday(this.getBirthday())
+                .phone(this.getPhone())
+                .address(this.getAddress())
+                .joinDate(this.getJoinDate())
+                .sex(this.getSex())
+                .role(this.getRole())
+                .build();
+    }
 }
