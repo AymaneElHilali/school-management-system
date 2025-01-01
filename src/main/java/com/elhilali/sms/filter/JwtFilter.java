@@ -1,5 +1,6 @@
 package com.elhilali.sms.filter;
 
+import com.elhilali.sms.dataAcces.entity.Role;
 import com.elhilali.sms.service.JwtService;
 import com.elhilali.sms.service.MyUserDetailsService;
 import jakarta.servlet.FilterChain;
@@ -32,13 +33,15 @@ public class JwtFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization");
         String token = null;
         String email = null;
+        Role role = null;
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
             email = jwtService.extractEmail(token);
+            role = jwtService.extractRole(token);
         }
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = context.getBean(MyUserDetailsService.class).loadUserByEmail(email);
+            UserDetails userDetails = context.getBean(MyUserDetailsService.class).loadUserByEmail(email,role);
             if (jwtService.validateToken(token, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource()

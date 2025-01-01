@@ -3,6 +3,7 @@ package com.elhilali.sms.dataAcces.dto;
 import com.elhilali.sms.dataAcces.entity.Role;
 import com.elhilali.sms.dataAcces.entity.Sex;
 import com.elhilali.sms.dataAcces.entity.Student;
+import com.elhilali.sms.dataAcces.entity.Teacher;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -50,8 +51,22 @@ public class SignupRequestDTO extends LoginRequestDTO {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public Student toEntity() {
+    public Student toSudent() {
         return (Student) Student.builder()
+                .email(this.getEmail())
+                .password(this.getPassword())
+                .firstName(this.getFirstName())
+                .lastName(this.getLastName())
+                .birthday(this.getBirthday())
+                .phone(this.getPhone())
+                .address(this.getAddress())
+                .joinDate(this.getJoinDate())
+                .sex(this.getSex())
+                .role(this.getRole())
+                .build();
+    }
+    public Teacher toTeacher() {
+        return (Teacher) Teacher.builder()
                 .email(this.getEmail())
                 .password(this.getPassword())
                 .firstName(this.getFirstName())

@@ -4,6 +4,7 @@ package com.elhilali.sms.config;
 //import com.elhilali.authentification.filter.JwtFilter;
 //import com.elhilali.authentification.service.MyUserDetailsService;
 import com.elhilali.sms.filter.JwtFilter;
+import com.elhilali.sms.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +25,7 @@ public class config {
     JwtFilter jwtFilter;
 
     @Autowired
-    UserDetailsService myUserDetailsService;
+    MyUserDetailsService myUserDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
@@ -32,7 +33,7 @@ public class config {
         httpSecurity
                 .csrf(off -> off.disable())
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/student/signup","/landingPage","/login").permitAll()
+                        .requestMatchers("/student/signup","/student/login","/teacher/login","/teacher/signup").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

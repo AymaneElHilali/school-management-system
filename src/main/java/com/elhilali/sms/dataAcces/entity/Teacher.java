@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "Student")
-public class Student extends User{
+@Table(name = "Teacher")
+public class Teacher extends User{
 
 }

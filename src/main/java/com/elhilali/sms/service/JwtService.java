@@ -1,5 +1,6 @@
 package com.elhilali.sms.service;
 
+import com.elhilali.sms.dataAcces.entity.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -30,10 +31,11 @@ public class JwtService {
         }
     }
 
-    public String generateToken(String email) {
+    public String generateToken(String email, Role role) {
         // Create a map of claims to include in the JWT payload
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", email);
+        claims.put("role", role);
         // Build the JWT with the claims, subject, issued time, and expiration time
         return Jwts.builder()
                 .setClaims(claims)
@@ -53,7 +55,10 @@ public class JwtService {
         // extract the username from jwt token
         return extractClaim(token, Claims::getSubject);
     }
-
+    public Role extractRole(String token) {
+        String roleString = extractClaim(token, claims -> claims.get("role", String.class));
+        return Role.valueOf(roleString);  // Convert the extracted string to the Role enum
+    }
     private <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
         final Claims claims = extractAllClaims(token);
         return claimResolver.apply(claims);
