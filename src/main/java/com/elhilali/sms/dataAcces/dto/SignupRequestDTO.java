@@ -1,9 +1,6 @@
 package com.elhilali.sms.dataAcces.dto;
 
-import com.elhilali.sms.dataAcces.entity.Role;
-import com.elhilali.sms.dataAcces.entity.Sex;
-import com.elhilali.sms.dataAcces.entity.Student;
-import com.elhilali.sms.dataAcces.entity.Teacher;
+import com.elhilali.sms.dataAcces.entity.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -67,6 +64,20 @@ public class SignupRequestDTO extends LoginRequestDTO {
     }
     public Teacher toTeacher() {
         return (Teacher) Teacher.builder()
+                .email(this.getEmail())
+                .password(this.getPassword())
+                .firstName(this.getFirstName())
+                .lastName(this.getLastName())
+                .birthday(this.getBirthday())
+                .phone(this.getPhone())
+                .address(this.getAddress())
+                .joinDate(this.getJoinDate())
+                .sex(this.getSex())
+                .role(this.getRole())
+                .build();
+    }
+    public Admin toAdmin() {
+        return (Admin) Admin.builder()
                 .email(this.getEmail())
                 .password(this.getPassword())
                 .firstName(this.getFirstName())

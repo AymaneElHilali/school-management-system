@@ -1,6 +1,7 @@
 package com.elhilali.sms.service;
 
 import com.elhilali.sms.dataAcces.entity.Role;
+import com.elhilali.sms.dataAcces.repo.AdminRepo;
 import com.elhilali.sms.dataAcces.repo.StudentRepo;
 import com.elhilali.sms.dataAcces.repo.TeacherRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     TeacherRepo teacherRepo;
 
+    @Autowired
+    AdminRepo adminRepo;
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return studentRepo.findByEmail(email);
@@ -27,6 +31,8 @@ public class MyUserDetailsService implements UserDetailsService {
             return studentRepo.findByEmail(email);
         } else if (role == Role.teacher) {
             return teacherRepo.findByEmail(email);
+        } else if (role == Role.admin) {
+            return adminRepo.findByEmail(email);
         }
         return null;
     }

@@ -33,7 +33,7 @@ public class config {
         httpSecurity
                 .csrf(off -> off.disable())
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/student/signup","/student/login","/teacher/login","/teacher/signup").permitAll()
+                        .requestMatchers("/student/signup","/student/login","/teacher/login","/teacher/signup","/admin/signup","/admin/login").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
