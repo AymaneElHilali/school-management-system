@@ -5,6 +5,7 @@ import com.elhilali.sms.dataAcces.dto.LoginResponseDTO;
 import com.elhilali.sms.dataAcces.dto.SignupRequestDTO;
 import com.elhilali.sms.dataAcces.dto.SignupResponseDTO;
 import com.elhilali.sms.dataAcces.entity.Admin;
+import com.elhilali.sms.dataAcces.entity.User;
 import com.elhilali.sms.dataAcces.repo.AdminRepo;
 import com.elhilali.sms.exception.ConflictException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class AdminService {
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO){
 
         // get the Admin by the email
-        Admin admin = adminRepo.findByEmail(loginRequestDTO.getEmail());
+        User admin = adminRepo.findByEmail(loginRequestDTO.getEmail());
 
         // check the admin is not null , and if they have the sam password
         if (admin!=null && loginRequestDTO.getPassword().equals(admin.getPassword())){

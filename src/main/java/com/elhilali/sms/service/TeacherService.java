@@ -4,8 +4,8 @@ import com.elhilali.sms.dataAcces.dto.LoginRequestDTO;
 import com.elhilali.sms.dataAcces.dto.LoginResponseDTO;
 import com.elhilali.sms.dataAcces.dto.SignupRequestDTO;
 import com.elhilali.sms.dataAcces.dto.SignupResponseDTO;
-import com.elhilali.sms.dataAcces.entity.Student;
 import com.elhilali.sms.dataAcces.entity.Teacher;
+import com.elhilali.sms.dataAcces.entity.User;
 import com.elhilali.sms.dataAcces.repo.TeacherRepo;
 import com.elhilali.sms.exception.ConflictException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class TeacherService {
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO){
 
         // get the teatcher by the email
-        Teacher teacher = teacherRepo.findByEmail(loginRequestDTO.getEmail());
+        User teacher = teacherRepo.findByEmail(loginRequestDTO.getEmail());
 
         // check the teacher is not null , and if they have the sam password
         if (teacher!=null && loginRequestDTO.getPassword().equals(teacher.getPassword())){

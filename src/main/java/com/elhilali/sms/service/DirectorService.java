@@ -4,26 +4,23 @@ import com.elhilali.sms.dataAcces.dto.LoginRequestDTO;
 import com.elhilali.sms.dataAcces.dto.LoginResponseDTO;
 import com.elhilali.sms.dataAcces.dto.SignupRequestDTO;
 import com.elhilali.sms.dataAcces.dto.SignupResponseDTO;
-import com.elhilali.sms.dataAcces.entity.Student;
+import com.elhilali.sms.dataAcces.entity.Director;
 import com.elhilali.sms.dataAcces.entity.User;
-import com.elhilali.sms.dataAcces.repo.StudentRepo;
+import com.elhilali.sms.dataAcces.repo.DirectorRepo;
 import com.elhilali.sms.exception.ConflictException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
-public class StudentService {
-
+public class DirectorService {
     @Autowired
     UserService userService;
 
     @Autowired
-    StudentRepo studentRepo;
+    DirectorRepo directorRepo;
 
     @Autowired
     JwtService jwtService;
-
 
     public SignupResponseDTO signup(SignupRequestDTO signupRequestDTO){
 
@@ -32,31 +29,31 @@ public class StudentService {
             throw new ConflictException("Email already Used!");
         }
 
-        // map from Dto to Student
-        Student mapedStudent = signupRequestDTO.toSudent();
-        // Save the Student
-        Student savedStudent = studentRepo.save(mapedStudent);
+        // map from Dto to Director
+        Director mapedDirector = signupRequestDTO.toDirector();
+        // Save the Director
+        Director savedDirector = directorRepo.save(mapedDirector);
 
-        if (savedStudent.getEmail()==null){
+        if (savedDirector.getEmail()==null){
             throw new ConflictException("signup failed");
         }
 
-        // map from student to the DTO that we will return
-        return savedStudent.ToSignupResponseDTO();
+        // map from director to the DTO that we will return
+        return savedDirector.ToSignupResponseDTO();
 
 
     }
 
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO){
 
-        // get the Student by the email
-        User student = studentRepo.findByEmail(loginRequestDTO.getEmail());
+        // get the Director by the email
+        User director = directorRepo.findByEmail(loginRequestDTO.getEmail());
 
-        // check the student is not null , and if they have the sam password
-        if (student!=null && loginRequestDTO.getPassword().equals(student.getPassword())){
+        // check the director is not null , and if they have the sam password
+        if (director!=null && loginRequestDTO.getPassword().equals(director.getPassword())){
 
-            LoginResponseDTO loginResponseDTO = student.ToLoginResponseDTO();
-            String token = jwtService.generateToken(student.getEmail(),student.getRole());
+            LoginResponseDTO loginResponseDTO = director.ToLoginResponseDTO();
+            String token = jwtService.generateToken(director.getEmail(),director.getRole());
             loginResponseDTO.setJwt(token);
             return loginResponseDTO;
 

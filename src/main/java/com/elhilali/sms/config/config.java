@@ -1,8 +1,6 @@
 package com.elhilali.sms.config;
 
-//
-//import com.elhilali.authentification.filter.JwtFilter;
-//import com.elhilali.authentification.service.MyUserDetailsService;
+
 import com.elhilali.sms.filter.JwtFilter;
 import com.elhilali.sms.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -33,7 +30,7 @@ public class config {
         httpSecurity
                 .csrf(off -> off.disable())
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/student/signup","/student/login","/teacher/login","/teacher/signup","/admin/signup","/admin/login").permitAll()
+                        .requestMatchers("/student/signup","/student/login","/teacher/login","/teacher/signup","/admin/signup","/admin/login","/director/login","/director/signup").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

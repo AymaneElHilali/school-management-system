@@ -90,4 +90,18 @@ public class SignupRequestDTO extends LoginRequestDTO {
                 .role(this.getRole())
                 .build();
     }
+    public Director toDirector() {
+        return (Director) Director.builder()
+                .email(this.getEmail())
+                .password(this.getPassword())
+                .firstName(this.getFirstName())
+                .lastName(this.getLastName())
+                .birthday(this.getBirthday())
+                .phone(this.getPhone())
+                .address(this.getAddress())
+                .joinDate(this.getJoinDate())
+                .sex(this.getSex())
+                .role(this.getRole())
+                .build();
+    }
 }
