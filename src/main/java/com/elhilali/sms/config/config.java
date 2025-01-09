@@ -30,7 +30,7 @@ public class config {
         httpSecurity
                 .csrf(off -> off.disable())
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/student/signup","/student/login","/teacher/login","/teacher/signup","/admin/signup","/admin/login","/director/login","/director/signup").permitAll()
+                        .requestMatchers("/student/signup","/student/login","/teacher/login","/teacher/signup","/admin/signup","/admin/login","/director/login","/director/signup","/addClassroom").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
