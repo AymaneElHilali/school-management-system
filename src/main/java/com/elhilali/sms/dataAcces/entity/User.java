@@ -3,6 +3,7 @@ package com.elhilali.sms.dataAcces.entity;
 
 import com.elhilali.sms.dataAcces.dto.LoginResponseDTO;
 import com.elhilali.sms.dataAcces.dto.SignupResponseDTO;
+import com.elhilali.sms.dataAcces.dto.UpdateBySelfDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -52,6 +53,7 @@ public class User implements UserDetails {
 
 
 
+
     public SignupResponseDTO ToSignupResponseDTO(){
 
         return SignupResponseDTO.builder()
@@ -70,7 +72,23 @@ public class User implements UserDetails {
                 .build();
     }
 
+    public UpdateBySelfDto toUpdateBySelfDto(){
 
+        return UpdateBySelfDto.builder()
+                .id(this.getId())
+                .email(this.getEmail())
+                .password(this.getPassword())
+                .firstName(this.getFirstName())
+                .lastName(this.getLastName())
+                .birthday(this.getBirthday())
+                .phone(this.getPhone())
+                .address(this.getAddress())
+                .joinDate(this.getJoinDate())
+                .sex(this.getSex())
+                .role(this.getRole())
+                .build();
+
+    }
 
 
 

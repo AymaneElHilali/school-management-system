@@ -1,15 +1,16 @@
 package com.elhilali.sms.service;
 
-import com.elhilali.sms.dataAcces.dto.LoginRequestDTO;
-import com.elhilali.sms.dataAcces.dto.LoginResponseDTO;
-import com.elhilali.sms.dataAcces.dto.SignupRequestDTO;
-import com.elhilali.sms.dataAcces.dto.SignupResponseDTO;
+import com.elhilali.sms.dataAcces.dto.*;
+import com.elhilali.sms.dataAcces.entity.Director;
 import com.elhilali.sms.dataAcces.entity.Director;
 import com.elhilali.sms.dataAcces.entity.User;
 import com.elhilali.sms.dataAcces.repo.DirectorRepo;
 import com.elhilali.sms.exception.ConflictException;
+import com.elhilali.sms.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class DirectorService {
@@ -61,6 +62,27 @@ public class DirectorService {
         else {
             throw new ConflictException("wrong email or password");
         }
+
+
+    }
+
+    public UpdateBySelfDto updateBySelf(UpdateBySelfDto updateBySelfDto){
+
+        //check if we have a user with that id
+        Long id = updateBySelfDto.getId();
+        Optional<Director> directorOptional = directorRepo.findById(id);
+        // throw the exception if the director is empty
+        if (directorOptional.isEmpty()){
+            throw new NotFoundException("no user with the id :"+id);
+        }
+        Director oldDirector = directorOptional.get();
+        // send the old director to the dto to get the new one
+        Director newDirector = (Director) updateBySelfDto.toUser(oldDirector);
+
+        directorRepo.save(newDirector);
+        return newDirector.toUpdateBySelfDto();
+
+
 
 
     }

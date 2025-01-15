@@ -1,14 +1,12 @@
 package com.elhilali.sms.controller;
 
-import com.elhilali.sms.dataAcces.dto.LoginRequestDTO;
-import com.elhilali.sms.dataAcces.dto.LoginResponseDTO;
-import com.elhilali.sms.dataAcces.dto.SignupRequestDTO;
-import com.elhilali.sms.dataAcces.dto.SignupResponseDTO;
+import com.elhilali.sms.dataAcces.dto.*;
 import com.elhilali.sms.service.StudentService;
 import com.elhilali.sms.service.TeacherService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +25,13 @@ public class TeacherController {
     public LoginResponseDTO login(@Valid @RequestBody LoginRequestDTO loginRequestDTO){
 
         return teacherService.login(loginRequestDTO);
+
+    }
+
+    @PutMapping("/teacher/update")
+    public UpdateBySelfDto updateBySelf(@Valid @RequestBody UpdateBySelfDto updateBySelfDto){
+
+        return teacherService.updateBySelf(updateBySelfDto);
 
     }
 }

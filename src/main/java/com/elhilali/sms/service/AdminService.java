@@ -1,15 +1,16 @@
 package com.elhilali.sms.service;
 
-import com.elhilali.sms.dataAcces.dto.LoginRequestDTO;
-import com.elhilali.sms.dataAcces.dto.LoginResponseDTO;
-import com.elhilali.sms.dataAcces.dto.SignupRequestDTO;
-import com.elhilali.sms.dataAcces.dto.SignupResponseDTO;
+import com.elhilali.sms.dataAcces.dto.*;
 import com.elhilali.sms.dataAcces.entity.Admin;
+import com.elhilali.sms.dataAcces.entity.Student;
 import com.elhilali.sms.dataAcces.entity.User;
 import com.elhilali.sms.dataAcces.repo.AdminRepo;
 import com.elhilali.sms.exception.ConflictException;
+import com.elhilali.sms.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AdminService {
@@ -62,6 +63,25 @@ public class AdminService {
         else {
             throw new ConflictException("wrong email or password");
         }
+
+    }
+    public UpdateBySelfDto updateBySelf(UpdateBySelfDto updateBySelfDto){
+
+        //check if we have a user with that id
+        Long id = updateBySelfDto.getId();
+        Optional<Admin> adminOptional = adminRepo.findById(id);
+        // throw the exception if the admin is empty
+        if (adminOptional.isEmpty()){
+            throw new NotFoundException("no user with the id :"+id);
+        }
+        Admin oldAdmin = adminOptional.get();
+        // send the old admin to the dto to get the new one
+        Admin newAdmin = (Admin) updateBySelfDto.toUser(oldAdmin);
+
+        adminRepo.save(newAdmin);
+        return newAdmin.toUpdateBySelfDto();
+
+
 
 
     }

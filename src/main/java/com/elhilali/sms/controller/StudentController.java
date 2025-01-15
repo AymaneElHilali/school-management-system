@@ -1,17 +1,11 @@
 package com.elhilali.sms.controller;
 
 
-import com.elhilali.sms.dataAcces.dto.LoginRequestDTO;
-import com.elhilali.sms.dataAcces.dto.LoginResponseDTO;
-import com.elhilali.sms.dataAcces.dto.SignupRequestDTO;
-import com.elhilali.sms.dataAcces.dto.SignupResponseDTO;
+import com.elhilali.sms.dataAcces.dto.*;
 import com.elhilali.sms.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class StudentController {
@@ -31,6 +25,14 @@ public class StudentController {
         return studentService.login(loginRequestDTO);
 
     }
+
+    @PutMapping("/student/update")
+    public UpdateBySelfDto updateBySelf(@Valid @RequestBody UpdateBySelfDto updateBySelfDto){
+
+        return studentService.updateBySelf(updateBySelfDto);
+
+    }
+
     @GetMapping("/test")
     public String test(){
         return "pass";

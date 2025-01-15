@@ -14,7 +14,7 @@ public class SignupRequestDTOTest {
        SignupRequestDTO signupRequestDTO = new SignupRequestDTO();
 
     @Test
-    public void toSudentTest(){
+    public void toStudentTest(){
         //give
         signupRequestDTO.setEmail("john.doe@example.com");
         signupRequestDTO.setPassword("securePassword123");
@@ -27,7 +27,7 @@ public class SignupRequestDTOTest {
         signupRequestDTO.setSex(Sex.MALE); // Assuming Sex is an Enum
         signupRequestDTO.setRole(Role.student); // Assuming Role is an Enum
         //get
-        Student student = signupRequestDTO.toSudent();
+        Student student = signupRequestDTO.toStudent();
         //should
         System.out.println(student);
     }

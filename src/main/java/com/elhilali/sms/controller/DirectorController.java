@@ -1,14 +1,12 @@
 package com.elhilali.sms.controller;
 
-import com.elhilali.sms.dataAcces.dto.LoginRequestDTO;
-import com.elhilali.sms.dataAcces.dto.LoginResponseDTO;
-import com.elhilali.sms.dataAcces.dto.SignupRequestDTO;
-import com.elhilali.sms.dataAcces.dto.SignupResponseDTO;
+import com.elhilali.sms.dataAcces.dto.*;
 import com.elhilali.sms.service.DirectorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +27,13 @@ public class DirectorController {
     public LoginResponseDTO login(@Valid @RequestBody LoginRequestDTO loginRequestDTO){
 
         return directorService.login(loginRequestDTO);
+
+    }
+
+    @PutMapping("/director/update")
+    public UpdateBySelfDto updateBySelf(@Valid @RequestBody UpdateBySelfDto updateBySelfDto){
+
+        return directorService.updateBySelf(updateBySelfDto);
 
     }
 

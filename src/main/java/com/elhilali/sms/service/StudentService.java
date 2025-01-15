@@ -1,15 +1,17 @@
 package com.elhilali.sms.service;
 
-import com.elhilali.sms.dataAcces.dto.LoginRequestDTO;
-import com.elhilali.sms.dataAcces.dto.LoginResponseDTO;
-import com.elhilali.sms.dataAcces.dto.SignupRequestDTO;
-import com.elhilali.sms.dataAcces.dto.SignupResponseDTO;
+import com.elhilali.sms.dataAcces.dto.*;
 import com.elhilali.sms.dataAcces.entity.Student;
 import com.elhilali.sms.dataAcces.entity.User;
 import com.elhilali.sms.dataAcces.repo.StudentRepo;
 import com.elhilali.sms.exception.ConflictException;
+import com.elhilali.sms.exception.NotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.Optional;
 
 
 @Service
@@ -33,7 +35,7 @@ public class StudentService {
         }
 
         // map from Dto to Student
-        Student mapedStudent = signupRequestDTO.toSudent();
+        Student mapedStudent = (Student) signupRequestDTO.toStudent();
         // Save the Student
         Student savedStudent = studentRepo.save(mapedStudent);
 
@@ -64,6 +66,26 @@ public class StudentService {
         else {
             throw new ConflictException("wrong email or password");
         }
+
+    }
+
+    public UpdateBySelfDto updateBySelf(UpdateBySelfDto updateBySelfDto){
+
+        //check if we have a user with that id
+       Long id = updateBySelfDto.getId();
+       Optional<Student> studentOptional = studentRepo.findById(id);
+       // throw the exception if the student is empty
+       if (studentOptional.isEmpty()){
+           throw new NotFoundException("no user with the id :"+id);
+       }
+       Student oldStudent = studentOptional.get();
+       // send the old student to the dto to get the new one
+       Student newStudent = (Student) updateBySelfDto.toUser(oldStudent);
+
+       studentRepo.save(newStudent);
+       return newStudent.toUpdateBySelfDto();
+
+
 
 
     }

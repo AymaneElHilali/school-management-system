@@ -1,15 +1,16 @@
 package com.elhilali.sms.service;
 
-import com.elhilali.sms.dataAcces.dto.LoginRequestDTO;
-import com.elhilali.sms.dataAcces.dto.LoginResponseDTO;
-import com.elhilali.sms.dataAcces.dto.SignupRequestDTO;
-import com.elhilali.sms.dataAcces.dto.SignupResponseDTO;
+import com.elhilali.sms.dataAcces.dto.*;
+import com.elhilali.sms.dataAcces.entity.Teacher;
 import com.elhilali.sms.dataAcces.entity.Teacher;
 import com.elhilali.sms.dataAcces.entity.User;
 import com.elhilali.sms.dataAcces.repo.TeacherRepo;
 import com.elhilali.sms.exception.ConflictException;
+import com.elhilali.sms.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class TeacherService {
@@ -63,6 +64,27 @@ public class TeacherService {
         else {
             throw new ConflictException("wrong email or password");
         }
+
+
+    }
+
+    public UpdateBySelfDto updateBySelf(UpdateBySelfDto updateBySelfDto){
+
+        //check if we have a user with that id
+        Long id = updateBySelfDto.getId();
+        Optional<Teacher> teacherOptional = teacherRepo.findById(id);
+        // throw the exception if the teacher is empty
+        if (teacherOptional.isEmpty()){
+            throw new NotFoundException("no user with the id :"+id);
+        }
+        Teacher oldTeacher = teacherOptional.get();
+        // send the old teacher to the dto to get the new one
+        Teacher newTeacher = (Teacher) updateBySelfDto.toUser(oldTeacher);
+
+        teacherRepo.save(newTeacher);
+        return newTeacher.toUpdateBySelfDto();
+
+
 
 
     }

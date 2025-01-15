@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClassroomRepo extends JpaRepository<Classroom,Long> {
 
+    Classroom findByNameAndYear(String name, String year);
+
 }
