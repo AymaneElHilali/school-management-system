@@ -16,14 +16,21 @@ import java.util.Optional;
 @Service
 public class AdminService {
 
-    @Autowired
-    UserService userService;
+
+    private final UserService userService;
+
+
+    private final AdminRepo adminRepo;
+
+
+    private final JwtService jwtService;
 
     @Autowired
-    AdminRepo adminRepo;
-
-    @Autowired
-    JwtService jwtService;
+    public AdminService(UserService userService, AdminRepo adminRepo, JwtService jwtService) {
+        this.userService = userService;
+        this.adminRepo = adminRepo;
+        this.jwtService = jwtService;
+    }
 
     public SignupResponseDTO signup(SignupRequestDTO signupRequestDTO){
 

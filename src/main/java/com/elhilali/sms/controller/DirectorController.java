@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class DirectorController {
 
+    private final DirectorService directorService;
+
     @Autowired
-    DirectorService directorService;
+    public DirectorController(DirectorService directorService) {
+        this.directorService = directorService;
+    }
 
     @PostMapping("/director/signup")
     public SignupResponseDTO signup(@Valid @RequestBody SignupRequestDTO signupRequestDTO){

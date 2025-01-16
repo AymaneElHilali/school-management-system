@@ -15,14 +15,21 @@ import java.util.Optional;
 
 @Service
 public class DirectorService {
-    @Autowired
-    UserService userService;
+
+
+    private final UserService userService;
+
+
+    private final DirectorRepo directorRepo;
+
+    private final JwtService jwtService;
 
     @Autowired
-    DirectorRepo directorRepo;
-
-    @Autowired
-    JwtService jwtService;
+    public DirectorService(UserService userService, DirectorRepo directorRepo, JwtService jwtService) {
+        this.userService = userService;
+        this.directorRepo = directorRepo;
+        this.jwtService = jwtService;
+    }
 
     public SignupResponseDTO signup(SignupRequestDTO signupRequestDTO){
 

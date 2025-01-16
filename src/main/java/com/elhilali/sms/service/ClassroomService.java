@@ -12,8 +12,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClassroomService {
 
+
+    private final ClassroomRepo classroomRepo;
+
     @Autowired
-    ClassroomRepo classroomRepo;
+    public ClassroomService(ClassroomRepo classroomRepo) {
+        this.classroomRepo = classroomRepo;
+    }
 
     //add classroom
     public Classroom addClassroom(ClassroomDto classroomDto){

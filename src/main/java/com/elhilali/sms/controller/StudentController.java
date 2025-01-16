@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class StudentController {
 
+    private final StudentService studentService;
+
     @Autowired
-    StudentService studentService;
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     @PostMapping("/student/signup")
     public SignupResponseDTO signup(@Valid @RequestBody SignupRequestDTO signupRequestDTO){

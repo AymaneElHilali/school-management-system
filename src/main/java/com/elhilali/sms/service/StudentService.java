@@ -19,15 +19,21 @@ import java.util.Optional;
 @Service
 public class StudentService {
 
-    @Autowired
-    UserService userService;
+
+    private final UserService userService;
+
+
+    private final StudentRepo studentRepo;
+
+
+    private final JwtService jwtService;
 
     @Autowired
-    StudentRepo studentRepo;
-
-    @Autowired
-    JwtService jwtService;
-
+    public StudentService(UserService userService, StudentRepo studentRepo, JwtService jwtService) {
+        this.userService = userService;
+        this.studentRepo = studentRepo;
+        this.jwtService = jwtService;
+    }
 
     public SignupResponseDTO signup(SignupRequestDTO signupRequestDTO){
 

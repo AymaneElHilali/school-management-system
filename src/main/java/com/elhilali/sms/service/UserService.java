@@ -10,17 +10,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    @Autowired
-    StudentRepo studentRepo;
+
+    private final StudentRepo studentRepo;
+
+
+    private final TeacherRepo teacherRepo;
+
+
+    private final AdminRepo adminRepo;
+
+
+    private final DirectorRepo directorRepo;
 
     @Autowired
-    TeacherRepo teacherRepo;
-
-    @Autowired
-    AdminRepo adminRepo;
-
-    @Autowired
-    DirectorRepo directorRepo;
+    public UserService(StudentRepo studentRepo, TeacherRepo teacherRepo, AdminRepo adminRepo, DirectorRepo directorRepo) {
+        this.studentRepo = studentRepo;
+        this.teacherRepo = teacherRepo;
+        this.adminRepo = adminRepo;
+        this.directorRepo = directorRepo;
+    }
 
     public boolean emailAlreadyUsed(String email){
         if (studentRepo.existsByEmail(email) || teacherRepo.existsByEmail(email) || adminRepo.existsByEmail(email) || directorRepo.existsByEmail(email) ){

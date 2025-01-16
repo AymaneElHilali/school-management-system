@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ClassroomController {
 
+
+    private final ClassroomService classroomService;
+
     @Autowired
-    ClassroomService classroomService;
+    public ClassroomController(ClassroomService classroomService) {
+        this.classroomService = classroomService;
+    }
 
     @PostMapping("/addClassroom")
     public Classroom addClassroom(@Valid @RequestBody ClassroomDto classroomDto){

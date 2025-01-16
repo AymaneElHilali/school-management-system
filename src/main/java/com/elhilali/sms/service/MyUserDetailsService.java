@@ -14,17 +14,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    StudentRepo studentRepo;
+
+    private final StudentRepo studentRepo;
+
+
+    private final TeacherRepo teacherRepo;
+
+
+    private final AdminRepo adminRepo;
+
+
+    private final DirectorRepo directorRepo;
 
     @Autowired
-    TeacherRepo teacherRepo;
-
-    @Autowired
-    AdminRepo adminRepo;
-
-    @Autowired
-    DirectorRepo directorRepo;
+    public MyUserDetailsService(StudentRepo studentRepo, TeacherRepo teacherRepo, AdminRepo adminRepo, DirectorRepo directorRepo) {
+        this.studentRepo = studentRepo;
+        this.teacherRepo = teacherRepo;
+        this.adminRepo = adminRepo;
+        this.directorRepo = directorRepo;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
