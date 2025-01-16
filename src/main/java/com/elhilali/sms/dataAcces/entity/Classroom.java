@@ -1,9 +1,7 @@
 package com.elhilali.sms.dataAcces.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.elhilali.sms.dataAcces.dto.ClassroomDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,6 +33,16 @@ public class Classroom {
 
     @OneToMany(mappedBy = "classroom")
     private List<ClassroomStudent> classroomStudents = new ArrayList<>();
+
+
+    public ClassroomDto toDto(){
+        return ClassroomDto.builder()
+                .id(this.getId())
+                .name(this.getName())
+                .fieldOfStudy(this.getFieldOfStudy())
+                .year(this.getYear())
+                .build();
+    }
 
 
 }

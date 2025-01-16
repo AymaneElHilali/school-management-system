@@ -1,14 +1,12 @@
 package com.elhilali.sms.controller;
 
-import com.elhilali.sms.dataAcces.dto.AddClassroomDto;
+import com.elhilali.sms.dataAcces.dto.ClassroomDto;
 import com.elhilali.sms.dataAcces.entity.Classroom;
 import com.elhilali.sms.service.ClassroomService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.PublicKey;
 
 @RestController
 public class ClassroomController {
@@ -17,10 +15,10 @@ public class ClassroomController {
     ClassroomService classroomService;
 
     @PostMapping("/addClassroom")
-    public Classroom addClassroom(@Valid @RequestBody AddClassroomDto addClassroomDto){
+    public Classroom addClassroom(@Valid @RequestBody ClassroomDto classroomDto){
 
 
-        return classroomService.addClassroom(addClassroomDto);
+        return classroomService.addClassroom(classroomDto);
 
     }
 
@@ -31,11 +29,11 @@ public class ClassroomController {
 
     }
     @PutMapping("/updateClassroom")
-    public String updateClassroom(@Valid @RequestBody AddClassroomDto addClassroomDto){
+    public ClassroomDto updateClassroom(@Valid @RequestBody ClassroomDto classroomDto){
 
 
-        classroomService.updateClassroom(addClassroomDto);
-        return "pass";
+        return classroomService.updateClassroom(classroomDto);
+
 
     }
 

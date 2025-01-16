@@ -1,6 +1,6 @@
 package com.elhilali.sms.service;
 
-import com.elhilali.sms.dataAcces.dto.AddClassroomDto;
+import com.elhilali.sms.dataAcces.dto.ClassroomDto;
 import com.elhilali.sms.dataAcces.entity.Classroom;
 import com.elhilali.sms.dataAcces.repo.ClassroomRepo;
 import com.elhilali.sms.exception.ConflictException;
@@ -16,15 +16,15 @@ public class ClassroomService {
     ClassroomRepo classroomRepo;
 
     //add classroom
-    public Classroom addClassroom(AddClassroomDto addClassroomDto){
+    public Classroom addClassroom(ClassroomDto classroomDto){
 
         //check if a classroom already created by the same name and year
-        Classroom isCreated = classroomRepo.findByNameAndYear(addClassroomDto.getName(),addClassroomDto.getYear());
+        Classroom isCreated = classroomRepo.findByNameAndYear(classroomDto.getName(), classroomDto.getYear());
 
         if (isCreated != null) throw new ConflictException("classroom already created with the same name and year");
 
         // map from the Dto To Classroom
-        Classroom classroom = addClassroomDto.toClassroom();
+        Classroom classroom = classroomDto.toClassroom();
 
         //save the classroom
         Classroom savedClassroom = classroomRepo.save(classroom);
@@ -56,29 +56,30 @@ public class ClassroomService {
 
     }
 
+
     //update classroom
-    public String updateClassroom(AddClassroomDto addClassroomDto){
+    public ClassroomDto updateClassroom(ClassroomDto classroomDto){
 
 
         // check if the classroom is exits
-        boolean isExist = classroomRepo.existsById(addClassroomDto.getId());
+        boolean isExist = classroomRepo.existsById(classroomDto.getId());
         if (!isExist){
-            throw new NotFoundException("no classroom found with the id: " + addClassroomDto.getId());
+            throw new NotFoundException("no classroom found with the id: " + classroomDto.getId());
         }
 
         //get the classroom
-        Classroom savedClassroom = classroomRepo.getById(addClassroomDto.getId());
+        Classroom savedClassroom = classroomRepo.getById(classroomDto.getId());
 
 
 
+        // map from dto to new Classroom
+        Classroom classroom = classroomDto.updateClassroom(savedClassroom);
+        //save
+        Classroom newClassroom = classroomRepo.save(classroom);
+        // map to dto to return it
+        return newClassroom.toDto();
 
-        // map from dto to Classroom
 
-        Classroom classroom = addClassroomDto.toClassroomWithId();
-
-
-        classroomRepo.save(classroom);
-        return "pass";
 
     }
 

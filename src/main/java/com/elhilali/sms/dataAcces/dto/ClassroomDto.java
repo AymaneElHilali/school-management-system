@@ -2,23 +2,21 @@ package com.elhilali.sms.dataAcces.dto;
 
 
 import com.elhilali.sms.dataAcces.entity.Classroom;
-import com.elhilali.sms.dataAcces.entity.ClassroomStudent;
 import com.elhilali.sms.dataAcces.entity.FieldOfStudy;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
 
-
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddClassroomDto {
+public class ClassroomDto {
 
     private Long id;
 
@@ -45,6 +43,13 @@ public class AddClassroomDto {
                 .fieldOfStudy(this.fieldOfStudy)
                 .year(this.year)
                 .build();
+    }
+    public Classroom updateClassroom(Classroom classroom){
+
+        classroom.setName(this.getName());
+        classroom.setFieldOfStudy(this.getFieldOfStudy());
+        classroom.setYear(this.getYear());
+        return classroom;
     }
 
 }
