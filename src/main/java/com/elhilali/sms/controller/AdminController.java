@@ -4,10 +4,8 @@ import com.elhilali.sms.dataAcces.dto.*;
 import com.elhilali.sms.service.AdminService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AdminController {
@@ -33,6 +31,12 @@ public class AdminController {
     public UpdateBySelfDto updateBySelf(@Valid @RequestBody UpdateBySelfDto updateBySelfDto){
 
         return adminService.updateBySelf(updateBySelfDto);
+
+    }
+    @DeleteMapping("/admin/delete/{id}")
+    public ResponseEntity<String> deleteAcount(@PathVariable Long id){
+
+        return adminService.deleteAcount(id);
 
     }
 }

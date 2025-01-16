@@ -8,7 +8,9 @@ import com.elhilali.sms.exception.ConflictException;
 import com.elhilali.sms.exception.NotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
@@ -85,8 +87,18 @@ public class StudentService {
        studentRepo.save(newStudent);
        return newStudent.toUpdateBySelfDto();
 
+    }
 
+    public ResponseEntity<String> deleteAcount( Long id){
 
+        // check if the user exist
+        boolean isExist = studentRepo.existsById(id);
+
+        if (!isExist) throw new NotFoundException("no user with the id :"+id);
+
+        studentRepo.deleteById(id);
+
+        return ResponseEntity.ok("the acount with the id:" + id + " has been deleted successfully.");
 
     }
 }

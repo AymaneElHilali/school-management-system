@@ -5,6 +5,7 @@ import com.elhilali.sms.dataAcces.dto.*;
 import com.elhilali.sms.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,6 +31,12 @@ public class StudentController {
     public UpdateBySelfDto updateBySelf(@Valid @RequestBody UpdateBySelfDto updateBySelfDto){
 
         return studentService.updateBySelf(updateBySelfDto);
+
+    }
+    @DeleteMapping("/student/delete/{id}")
+    public ResponseEntity<String> deleteAcount(@PathVariable Long id){
+
+        return studentService.deleteAcount(id);
 
     }
 

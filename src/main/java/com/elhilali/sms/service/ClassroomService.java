@@ -51,7 +51,7 @@ public class ClassroomService {
         //delete the classroom
         classroomRepo.deleteById(id);
 
-        return ResponseEntity.ok("classroom wit the id:" + id + " has been deleted successfully.");
+        return ResponseEntity.ok("classroom with the id:" + id + " has been deleted successfully.");
 
 
     }

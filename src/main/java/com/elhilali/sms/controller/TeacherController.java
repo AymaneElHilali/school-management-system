@@ -5,10 +5,8 @@ import com.elhilali.sms.service.StudentService;
 import com.elhilali.sms.service.TeacherService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TeacherController {
@@ -32,6 +30,12 @@ public class TeacherController {
     public UpdateBySelfDto updateBySelf(@Valid @RequestBody UpdateBySelfDto updateBySelfDto){
 
         return teacherService.updateBySelf(updateBySelfDto);
+
+    }
+    @DeleteMapping("/teacher/delete/{id}")
+    public ResponseEntity<String> deleteAcount(@PathVariable Long id){
+
+        return teacherService.deleteAcount(id);
 
     }
 }

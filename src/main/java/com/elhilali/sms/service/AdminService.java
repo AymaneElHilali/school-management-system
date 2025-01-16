@@ -8,6 +8,7 @@ import com.elhilali.sms.dataAcces.repo.AdminRepo;
 import com.elhilali.sms.exception.ConflictException;
 import com.elhilali.sms.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -81,8 +82,18 @@ public class AdminService {
         adminRepo.save(newAdmin);
         return newAdmin.toUpdateBySelfDto();
 
+    }
 
+    public ResponseEntity<String> deleteAcount(Long id){
 
+        // check if the user exist
+        boolean isExist = adminRepo.existsById(id);
+
+        if (!isExist) throw new NotFoundException("no user with the id :"+id);
+
+        adminRepo.deleteById(id);
+
+        return ResponseEntity.ok("the acount with the id:" + id + " has been deleted successfully.");
 
     }
 }
