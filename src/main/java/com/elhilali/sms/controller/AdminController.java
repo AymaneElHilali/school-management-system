@@ -44,4 +44,16 @@ public class AdminController {
         return adminService.deleteAcount(id);
 
     }
+    @PostMapping("/admin/student/signup")
+    public SignupResponseDTO signupStudent(@Valid @RequestBody SignupRequestDTO signupRequestDTO){
+
+        return adminService.signupStudent(signupRequestDTO) ;
+
+    }
+    @DeleteMapping("/admin/student/delete/{id}")
+    public ResponseEntity<String> deleteStudentAcount(@PathVariable Long id){
+
+        return adminService.deleteStudentAcount(id);
+
+    }
 }

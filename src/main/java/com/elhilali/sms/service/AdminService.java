@@ -7,6 +7,7 @@ import com.elhilali.sms.dataAcces.entity.User;
 import com.elhilali.sms.dataAcces.repo.AdminRepo;
 import com.elhilali.sms.exception.ConflictException;
 import com.elhilali.sms.exception.NotFoundException;
+import org.aspectj.weaver.SignatureUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.Optional;
 @Service
 public class AdminService {
 
+    private final AdminManagementService adminManagementService;
 
     private final UserService userService;
 
@@ -26,10 +28,11 @@ public class AdminService {
     private final JwtService jwtService;
 
     @Autowired
-    public AdminService(UserService userService, AdminRepo adminRepo, JwtService jwtService) {
+    public AdminService(UserService userService, AdminRepo adminRepo, JwtService jwtService,AdminManagementService adminManagementService) {
         this.userService = userService;
         this.adminRepo = adminRepo;
         this.jwtService = jwtService;
+        this.adminManagementService = adminManagementService;
     }
 
     public SignupResponseDTO signup(SignupRequestDTO signupRequestDTO){
@@ -103,4 +106,22 @@ public class AdminService {
         return ResponseEntity.ok("the acount with the id:" + id + " has been deleted successfully.");
 
     }
+
+
+
+    // the part for the functions that the admin can do for student
+
+    //signup
+    public SignupResponseDTO signupStudent(SignupRequestDTO signupRequestDTO){
+
+        return adminManagementService.signupStudent(signupRequestDTO);
+
+    }
+    //delete
+
+    public ResponseEntity<String> deleteStudentAcount(Long id){
+        return adminManagementService.deleteStudentAcount(id);
+    }
+
+
 }

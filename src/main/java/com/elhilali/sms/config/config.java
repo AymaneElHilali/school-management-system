@@ -1,6 +1,7 @@
 package com.elhilali.sms.config;
 
 
+import com.elhilali.sms.dataAcces.entity.Role;
 import com.elhilali.sms.filter.JwtFilter;
 import com.elhilali.sms.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,8 @@ public class config {
         httpSecurity
                 .csrf(off -> off.disable())
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/student/**","/admin/**","/teacher/**","/director/**","/addClassroom","/updateClassroom","/deleteClassroom/**").permitAll()
+                        .requestMatchers("/student/**","/admin/login","/teacher/**","/director/**","/addClassroom","/updateClassroom","/deleteClassroom/**").permitAll()
+                        .requestMatchers("/admin/**").hasRole("admin")
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
