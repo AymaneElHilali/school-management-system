@@ -109,7 +109,8 @@ public class AdminService {
 
 
 
-    // the part for the functions that the admin can do for student
+    //student
+    //functions that the admin can do for student
 
     //signup
     public SignupResponseDTO signupStudent(SignupRequestDTO signupRequestDTO){
@@ -117,10 +118,40 @@ public class AdminService {
         return adminManagementService.signupStudent(signupRequestDTO);
 
     }
+
+    //update
+
+    public UpdateByOther updateStudent(UpdateByOther updateByOther){
+        return adminManagementService.updateStudent(updateByOther);
+    }
+
     //delete
 
     public ResponseEntity<String> deleteStudentAcount(Long id){
         return adminManagementService.deleteStudentAcount(id);
+    }
+
+
+
+    //teacher
+    //functions that the admin can do for student
+
+    //signup
+    public SignupResponseDTO signupTeacher(SignupRequestDTO signupRequestDTO){
+
+        return adminManagementService.signupTeacher(signupRequestDTO);
+
+    }
+    // update
+
+    public UpdateByOther updateTeacher(UpdateByOther updateByOther){
+        return adminManagementService.updateTeacher(updateByOther);
+    }
+
+    //delete
+
+    public ResponseEntity<String> deleteTeacherAcount(Long id){
+        return adminManagementService.deleteTeacherAcount(id);
     }
 
 

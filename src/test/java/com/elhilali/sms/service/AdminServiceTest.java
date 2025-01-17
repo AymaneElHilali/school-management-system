@@ -24,7 +24,7 @@ public class AdminServiceTest {
 
         //give
         SignupRequestDTO signupRequestDTO = new SignupRequestDTO();
-        signupRequestDTO.setEmail("Test@gmail.com");
+        signupRequestDTO.setEmail("Test2@gmail.com");
         signupRequestDTO.setPassword("securePassword123@");
         signupRequestDTO.setFirstName("John");
         signupRequestDTO.setLastName("Doe");
@@ -41,6 +41,35 @@ public class AdminServiceTest {
         //should
         SignupResponseDTO result = new SignupResponseDTO();
         result.setEmail("Test@gmail.com");
+        result.setMessage("Signup successful");
+        assertEquals(result,signupResponseDTO);
+
+    }
+
+
+
+    @Test
+    public void signupTeacherTest(){
+
+        //give
+        SignupRequestDTO signupRequestDTO = new SignupRequestDTO();
+        signupRequestDTO.setEmail("Test1@gmail.com");
+        signupRequestDTO.setPassword("securePassword123@");
+        signupRequestDTO.setFirstName("John");
+        signupRequestDTO.setLastName("Doe");
+        signupRequestDTO.setBirthday(new Date(2006,06,06));
+        signupRequestDTO.setPhone("0612345678");
+        signupRequestDTO.setAddress("1234 Elm Street, Some City, Some Country");
+        signupRequestDTO.setJoinDate(new Date(2025,01,17));
+        signupRequestDTO.setSex(Sex.MALE);
+        signupRequestDTO.setRole(Role.teacher);
+
+        SignupResponseDTO signupResponseDTO = adminService.signupTeacher(signupRequestDTO);
+
+
+        //should
+        SignupResponseDTO result = new SignupResponseDTO();
+        result.setEmail("Test1@gmail.com");
         result.setMessage("Signup successful");
         assertEquals(result,signupResponseDTO);
 

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -87,6 +88,10 @@ public class StudentService {
            throw new NotFoundException("no user with the id :"+id);
        }
        Student oldStudent = studentOptional.get();
+        //throw the exception if the new email already used
+        if (!Objects.equals(updateBySelfDto.getEmail(), oldStudent.getEmail()) && studentRepo.existsByEmail(updateBySelfDto.getEmail())){
+            throw new ConflictException("email already used");
+        }
        // send the old student to the dto to get the new one
        Student newStudent = (Student) updateBySelfDto.toUser(oldStudent);
 
@@ -94,6 +99,30 @@ public class StudentService {
        return newStudent.toUpdateBySelfDto();
 
     }
+
+    public UpdateByOther updateByOther(UpdateByOther updateByOther){
+
+        //check if we have a user with that id
+        Long id = updateByOther.getId();
+        Optional<Student> studentOptional = studentRepo.findById(id);
+        // throw the exception if the student is empty
+        if (studentOptional.isEmpty()){
+            throw new NotFoundException("no user with the id :"+id);
+        }
+        Student oldStudent = studentOptional.get();
+        // send the old student to the dto to get the new one
+        //throw the exception if the new email already used
+        if (!Objects.equals(updateByOther.getEmail(), oldStudent.getEmail()) && studentRepo.existsByEmail(updateByOther.getEmail())){
+            throw new ConflictException("email already used");
+        }
+        Student newStudent = (Student) updateByOther.toUser(oldStudent);
+
+        studentRepo.save(newStudent);
+        return newStudent.toUpdateByOther();
+
+    }
+
+
 
     public ResponseEntity<String> deleteAcount( Long id){
 

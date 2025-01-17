@@ -44,16 +44,49 @@ public class AdminController {
         return adminService.deleteAcount(id);
 
     }
+
+    //student
     @PostMapping("/admin/student/signup")
     public SignupResponseDTO signupStudent(@Valid @RequestBody SignupRequestDTO signupRequestDTO){
 
         return adminService.signupStudent(signupRequestDTO) ;
 
     }
+
+    //update
+    @PutMapping("/admin/student/update")
+    public UpdateByOther updateStudent(@Valid @RequestBody UpdateByOther updateByOther){
+
+        return adminService.updateStudent(updateByOther);
+
+    }
+
     @DeleteMapping("/admin/student/delete/{id}")
     public ResponseEntity<String> deleteStudentAcount(@PathVariable Long id){
 
         return adminService.deleteStudentAcount(id);
+
+    }
+
+    //teacher
+
+    @PostMapping("/admin/teacher/signup")
+    public SignupResponseDTO signupTeacher(@Valid @RequestBody SignupRequestDTO signupRequestDTO){
+
+        return adminService.signupTeacher(signupRequestDTO) ;
+
+    }
+    @DeleteMapping("/admin/teacher/delete/{id}")
+    public ResponseEntity<String> deleteTeacherAcount(@PathVariable Long id){
+
+        return adminService.deleteTeacherAcount(id);
+
+    }
+    //update
+    @PutMapping("/admin/teacher/update")
+    public UpdateByOther updateTeacher(@Valid @RequestBody UpdateByOther updateByOther){
+
+        return adminService.updateTeacher(updateByOther);
 
     }
 }

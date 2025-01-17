@@ -3,6 +3,7 @@ package com.elhilali.sms.service;
 import com.elhilali.sms.dataAcces.dto.*;
 import com.elhilali.sms.dataAcces.entity.Teacher;
 import com.elhilali.sms.dataAcces.entity.Teacher;
+import com.elhilali.sms.dataAcces.entity.Teacher;
 import com.elhilali.sms.dataAcces.entity.User;
 import com.elhilali.sms.dataAcces.repo.TeacherRepo;
 import com.elhilali.sms.exception.ConflictException;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -86,12 +88,43 @@ public class TeacherService {
             throw new NotFoundException("no user with the id :"+id);
         }
         Teacher oldTeacher = teacherOptional.get();
+        //throw the exception if the new email already used
+        if (!Objects.equals(updateBySelfDto.getEmail(), oldTeacher.getEmail()) && teacherRepo.existsByEmail(updateBySelfDto.getEmail())){
+            throw new ConflictException("email already used");
+        }
         // send the old teacher to the dto to get the new one
         Teacher newTeacher = (Teacher) updateBySelfDto.toUser(oldTeacher);
 
         teacherRepo.save(newTeacher);
         return newTeacher.toUpdateBySelfDto();
     }
+
+
+    public UpdateByOther updateByOther(UpdateByOther updateByOther){
+
+        //check if we have a user with that id
+        Long id = updateByOther.getId();
+        Optional<Teacher> teacherOptional = teacherRepo.findById(id);
+        // throw the exception if the teacher is empty
+        if (teacherOptional.isEmpty()){
+            throw new NotFoundException("no user with the id :"+id);
+        }
+        Teacher oldTeacher = teacherOptional.get();
+        //throw the exception if the new email already used
+        if (!Objects.equals(updateByOther.getEmail(), oldTeacher.getEmail()) && teacherRepo.existsByEmail(updateByOther.getEmail())){
+            throw new ConflictException("email already used");
+        }
+        // send the old teacher to the dto to get the new one
+        Teacher newTeacher = (Teacher) updateByOther.toUser(oldTeacher);
+
+        teacherRepo.save(newTeacher);
+        return newTeacher.toUpdateByOther();
+
+    }
+
+
+
+
     public ResponseEntity<String> deleteAcount(Long id){
 
         // check if the user exist
