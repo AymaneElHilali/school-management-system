@@ -20,7 +20,7 @@ public class ClassroomController {
     }
 
     @PostMapping("/addClassroom")
-    public Classroom addClassroom(@Valid @RequestBody ClassroomDto classroomDto){
+    public ClassroomDto addClassroom(@Valid @RequestBody ClassroomDto classroomDto){
 
 
         return classroomService.addClassroom(classroomDto);

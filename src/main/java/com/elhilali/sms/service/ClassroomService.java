@@ -21,7 +21,7 @@ public class ClassroomService {
     }
 
     //add classroom
-    public Classroom addClassroom(ClassroomDto classroomDto){
+    public ClassroomDto addClassroom(ClassroomDto classroomDto){
 
         //check if a classroom already created by the same name and year
         Classroom isCreated = classroomRepo.findByNameAndYear(classroomDto.getName(), classroomDto.getYear());
@@ -40,7 +40,7 @@ public class ClassroomService {
 
         }
 
-        return savedClassroom;
+        return savedClassroom.toDto();
 
     }
 

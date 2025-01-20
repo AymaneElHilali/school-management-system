@@ -89,4 +89,12 @@ public class AdminController {
         return adminService.updateTeacher(updateByOther);
 
     }
+
+
+    //Classroom
+    //add
+    @PostMapping("/admin/classroom/add")
+    public ClassroomDto addClassroom(@Valid @RequestBody ClassroomDto classroomDto){
+        return adminService.addClassroom(classroomDto);
+    }
 }

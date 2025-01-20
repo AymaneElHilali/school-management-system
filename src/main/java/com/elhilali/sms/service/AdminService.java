@@ -155,4 +155,14 @@ public class AdminService {
     }
 
 
+
+
+    //Classroom
+
+    //add
+    public ClassroomDto addClassroom(ClassroomDto classroomDto){
+        return adminManagementService.addClassroom(classroomDto);
+    }
+
+
 }
