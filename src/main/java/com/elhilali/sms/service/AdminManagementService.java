@@ -1,9 +1,7 @@
 package com.elhilali.sms.service;
 
-import com.elhilali.sms.dataAcces.dto.ClassroomDto;
-import com.elhilali.sms.dataAcces.dto.SignupRequestDTO;
-import com.elhilali.sms.dataAcces.dto.SignupResponseDTO;
-import com.elhilali.sms.dataAcces.dto.UpdateByOther;
+import com.elhilali.sms.dataAcces.dto.*;
+import com.elhilali.sms.dataAcces.entity.ClassroomStudent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,16 +11,19 @@ public class AdminManagementService {
 
     private final ClassroomService classroomService;
 
+    private final ClassroomStudentService classroomStudentService;
+
     private final StudentService studentService;
 
     private final TeacherService teacherService;
 
     @Autowired
-    public AdminManagementService(StudentService studentService , TeacherService teacherService, ClassroomService classroomService) {
+    public AdminManagementService(StudentService studentService , TeacherService teacherService, ClassroomService classroomService,ClassroomStudentService classroomStudentService) {
 
         this.studentService = studentService;
         this.teacherService = teacherService;
         this.classroomService = classroomService;
+        this.classroomStudentService = classroomStudentService;
     }
 
     //student
@@ -61,5 +62,10 @@ public class AdminManagementService {
 
         return classroomService.addClassroom(classroomDto);
 
+    }
+
+    //add Student to a Classroom
+    public ClassroomStudentResponseDto addStudentToClassroom(ClassroomStudentDto classroomStudentDto){
+        return classroomStudentService.addStudentToClassroom(classroomStudentDto);
     }
 }

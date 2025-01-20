@@ -164,5 +164,10 @@ public class AdminService {
         return adminManagementService.addClassroom(classroomDto);
     }
 
+    //add Student to a Classroom
+    public ClassroomStudentResponseDto addStudentToClassroom(ClassroomStudentDto classroomStudentDto){
+        return adminManagementService.addStudentToClassroom(classroomStudentDto);
+    }
+
 
 }

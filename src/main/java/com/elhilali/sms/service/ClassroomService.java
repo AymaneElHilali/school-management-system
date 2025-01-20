@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ClassroomService {
 
@@ -86,6 +88,16 @@ public class ClassroomService {
 
 
 
+    }
+
+    //get Classroom by id
+    public Classroom findById(Long id){
+
+       Optional<Classroom> classroom = classroomRepo.findById(id);
+
+       if (classroom.isEmpty()) throw new NotFoundException("Classroom with the id : "+id+"NotFound");
+
+       return classroom.get();
     }
 
 

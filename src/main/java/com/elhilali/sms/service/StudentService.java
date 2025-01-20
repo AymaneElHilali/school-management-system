@@ -6,12 +6,9 @@ import com.elhilali.sms.dataAcces.entity.User;
 import com.elhilali.sms.dataAcces.repo.StudentRepo;
 import com.elhilali.sms.exception.ConflictException;
 import com.elhilali.sms.exception.NotFoundException;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -135,5 +132,16 @@ public class StudentService {
 
         return ResponseEntity.ok("the acount with the id:" + id + " has been deleted successfully.");
 
+    }
+
+    //get student by id
+    public Student findById(Long id){
+
+        Optional<Student> student = studentRepo.findById(id);
+
+        //trow Student Not found
+        if (student.isEmpty()) throw new NotFoundException("0 student found with the id :"+id);
+
+        return student.get();
     }
 }

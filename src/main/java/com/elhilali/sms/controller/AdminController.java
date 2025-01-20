@@ -97,4 +97,10 @@ public class AdminController {
     public ClassroomDto addClassroom(@Valid @RequestBody ClassroomDto classroomDto){
         return adminService.addClassroom(classroomDto);
     }
+
+    //add Student to a Classroom
+    @PostMapping("/admin/classroomStudent/addStudentToClassroom")
+    public ClassroomStudentResponseDto addStudentToClassroom( @RequestBody ClassroomStudentDto classroomStudentDto){
+        return adminService.addStudentToClassroom(classroomStudentDto);
+    }
 }
