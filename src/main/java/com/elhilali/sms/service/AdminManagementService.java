@@ -2,9 +2,12 @@ package com.elhilali.sms.service;
 
 import com.elhilali.sms.dataAcces.dto.*;
 import com.elhilali.sms.dataAcces.entity.ClassroomStudent;
+import com.elhilali.sms.dataAcces.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AdminManagementService {
@@ -67,5 +70,10 @@ public class AdminManagementService {
     //add Student to a Classroom
     public ClassroomStudentResponseDto addStudentToClassroom(ClassroomStudentDto classroomStudentDto){
         return classroomStudentService.addStudentToClassroom(classroomStudentDto);
+    }
+
+    // get all the students from a classRoom
+    public List<Student> findStudentsByClassroomId(Long classroomId){
+        return classroomStudentService.findStudentsByClassroomId(classroomId);
     }
 }

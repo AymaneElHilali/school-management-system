@@ -1,11 +1,14 @@
 package com.elhilali.sms.controller;
 
 import com.elhilali.sms.dataAcces.dto.*;
+import com.elhilali.sms.dataAcces.entity.Student;
 import com.elhilali.sms.service.AdminService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class AdminController {
@@ -102,5 +105,11 @@ public class AdminController {
     @PostMapping("/admin/classroomStudent/addStudentToClassroom")
     public ClassroomStudentResponseDto addStudentToClassroom( @RequestBody ClassroomStudentDto classroomStudentDto){
         return adminService.addStudentToClassroom(classroomStudentDto);
+    }
+
+    // get all the students from a classRoom
+    @GetMapping("/admin/classroomStudent/{id}")
+    public List<UserDataDto> findStudentsByClassroomId(@PathVariable("id") Long classroomId){
+        return adminService.findStudentsByClassroomId(classroomId);
     }
 }

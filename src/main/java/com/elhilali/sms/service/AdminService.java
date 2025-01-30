@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -167,6 +169,23 @@ public class AdminService {
     //add Student to a Classroom
     public ClassroomStudentResponseDto addStudentToClassroom(ClassroomStudentDto classroomStudentDto){
         return adminManagementService.addStudentToClassroom(classroomStudentDto);
+    }
+
+    // get all the students from a classRoom
+    public List<UserDataDto> findStudentsByClassroomId(Long classroomId) {
+        // Create new List
+        List<UserDataDto> dtosList = new ArrayList<>();
+
+        // Get students from service
+        List<Student> students = adminManagementService.findStudentsByClassroomId(classroomId);
+
+        // Map each student to UserDataDto and add to list
+        for (Student student : students) {
+            dtosList.add(student.toUserDataDto());
+        }
+
+        // Return the list of DTOs
+        return dtosList;
     }
 
 

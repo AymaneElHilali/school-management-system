@@ -1,10 +1,7 @@
 package com.elhilali.sms.dataAcces.entity;
 
 
-import com.elhilali.sms.dataAcces.dto.LoginResponseDTO;
-import com.elhilali.sms.dataAcces.dto.SignupResponseDTO;
-import com.elhilali.sms.dataAcces.dto.UpdateByOther;
-import com.elhilali.sms.dataAcces.dto.UpdateBySelfDto;
+import com.elhilali.sms.dataAcces.dto.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -94,6 +91,23 @@ public class User implements UserDetails {
     public UpdateByOther toUpdateByOther(){
 
         return UpdateByOther.builder()
+                .id(this.getId())
+                .email(this.getEmail())
+                .firstName(this.getFirstName())
+                .lastName(this.getLastName())
+                .birthday(this.getBirthday())
+                .phone(this.getPhone())
+                .address(this.getAddress())
+                .joinDate(this.getJoinDate())
+                .sex(this.getSex())
+                .role(this.getRole())
+                .build();
+
+    }
+
+    public UserDataDto toUserDataDto(){
+
+        return UserDataDto.builder()
                 .id(this.getId())
                 .email(this.getEmail())
                 .firstName(this.getFirstName())
